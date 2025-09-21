@@ -1,9 +1,13 @@
 import { Component, signal } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    FlexLayoutModule, 
+    RouterOutlet
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

@@ -1,0 +1,40 @@
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="form">
+            <div fxLayout="row">
+                <mat-form-field fxLayout="column" fxFlex="100">
+                    <input matInput formControlName="q">
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button matButton [disabled]="form.invalid" (click)="cerca()">Cerca</button>
+    </mat-card-actions>
+</mat-card>
+
+<br>
+
+<mat-card>
+    <mat-card-content>
+        @if(!!libri && libri.length > 0) {
+        @for (libro of libri; track libro) {
+        <div style="padding: 10px;" fxLayout="row" fxLayoutGap="10px">
+            <div fxLayout="column" fxLayoutAlign="center center" fxFlex="20">
+                <img [src]="`https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`" [alt]="libro.title"
+                    class="cover">
+            </div>
+            <div fxLayout="column" fxFlex="30">
+                <h2> {{libro.title}}</h2>
+                <span class="autori">Autori</span> <span>{{libro.author_name}}</span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center end" fxFlex="20">
+                <button matButton="filled" (click)="dettaglio(libro)">Dettaglio libro</button>
+            </div>
+        </div>
+        }
+        } @else {
+        <span>Nessun libro trovato</span>
+        }
+    </mat-card-content>
+</mat-card>

@@ -1,4 +1,3 @@
-
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
@@ -7,14 +6,12 @@
 @use '@angular/material' as mat;
 
 html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme((color: (primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
 }
 
 body {
@@ -33,7 +30,98 @@ body {
   // Reset the user agent margin.
   margin: 0;
 }
+
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// Shell
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  mat-toolbar {
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+  }
+
+  .example-is-mobile .example-toolbar {
+    position: fixed;
+    z-index: 2;
+  }
+
+  h1.example-app-name {
+    margin-left: 8px;
+  }
+
+  .sidenav-container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex: 1;
+
+    mat-sidenav {
+      border-right: 1px solid var(--mat-sys-outline-variant);
+
+      &.mat-drawer {
+        border-top-right-radius: var(--mat-sidenav-container-shape, 0);
+        border-bottom-right-radius: var(--mat-sidenav-container-shape, 0);
+      }
+    }
+
+    mat-sidenav-content {
+      padding: 20px;
+      background-color: var(--mat-sys-surface-container-low);
+    }
+  }
+
+  .example-is-mobile .sidenav-container {
+    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+    flex: 1 0 auto;
+
+    mat-sidenav {
+      border-right: 1px solid var(--mat-sys-outline-variant);
+
+      &.mat-drawer {
+        border-top-right-radius: var(--mat-sidenav-container-shape, 0);
+        border-bottom-right-radius: var(--mat-sidenav-container-shape, 0);
+      }
+    }
+
+    mat-sidenav-content {
+      padding: 20px;
+      background-color: var(--mat-sys-surface-container-low);
+    }
+  }
+
+
+}
+
+// Spinner
+
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}

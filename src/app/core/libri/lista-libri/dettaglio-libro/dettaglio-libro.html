@@ -1,0 +1,98 @@
+<div fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="start stretch" class="book-detail-container">
+    <!-- Colonna sinistra: copertina e azioni -->
+    <div fxFlex="25" class="book-sidebar" fxLayout="column" fxLayoutGap="16px">
+        <!-- Copertina -->
+        <mat-card>
+            @if (libro.coverUrl) {
+            <img [src]="libro.coverUrl" [alt]="libro.title" class="book-cover" />
+            } @else {
+            <div class="no-cover">Nessuna copertina</div>
+            }
+        </mat-card>
+    </div>
+
+    <!-- Colonna destra: dettagli -->
+    <div fxFlex="75" class="book-main" fxLayout="column" fxLayoutGap="16px">
+        <!-- Titolo e autore -->
+        <span>Una edizione di {{libro.workTitle}}</span>
+        <h1>{{ libro.title }}</h1>
+        <h3>
+            di <a href="#">{{ libro.author }}</a>
+        </h3>
+
+        <!-- Descrizione -->
+        <p>{{ libro.description }}</p>
+
+        <!-- Schede info principali -->
+        <div fxLayout="row" fxLayoutGap="16px">
+            <mat-card fxFlex="20">
+                <mat-card-content>
+                    <p><strong>Data di pubblicazione</strong></p>
+                    <p>{{ libro.publishDate }}</p>
+                </mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="20">
+                <mat-card-content>
+                    <p><strong>Editore</strong></p>
+                    <p>{{ libro.publisher }}</p>
+                </mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="20">
+                <mat-card-content>
+                    <p><strong>Lingua</strong></p>
+                    <p>{{ libro.language }}</p>
+                </mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="20">
+                <mat-card-content>
+                    <p><strong>Pagine</strong></p>
+                    <p>{{ libro.pages }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Dettagli edizione
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div fxLayout="column" fxLayoutGap="10px">
+                    <div fxLayout="column" fxLayoutGap="5px">
+                        <strong></strong>
+                        <div fxLayout="row" fxLayoutGap="10px">
+                            <span>Id edizione:</span>
+                            <span>{{libro.id}}</span>
+                        </div>
+                        @if(libro.isbn13){
+                        <div fxLayout="row" fxLayoutGap="10px">
+                            <span>ISBN 13:</span>
+                            <span>{{libro.isbn13 }}</span>
+                        </div>
+                        }
+                        @if(libro.isbn10){
+                        <div fxLayout="row" fxLayoutGap="10px">
+                            <span>ISBN 10:</span>
+                            <span>{{libro.isbn10}}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div fxLayout="column" fxLayoutGap="5px">
+                        <div fxLayout="row" fxLayoutGap="10px">
+                            <span>Id work:</span>
+                            <span>{{libro.idWork}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <div fxLayout="column" fxLayoutAlign="center end" fxFlex="20">
+            <button matButton="filled" (click)="goBack()">Torna alla lista</button>
+        </div>
+    </div>
+</div>
