@@ -76,6 +76,7 @@ export interface OpenLibraryEdition {
         [key: string]: string[] | undefined;
     };
     title: string;
+    description?: string | { value: string };
     authors?: { key: string }[];
     publish_date?: string;
     publishers?: string[];

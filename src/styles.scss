@@ -125,3 +125,9 @@ body {
   justify-content: center;
   z-index: 1000;
 }
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+  font-weight: bold;
+}

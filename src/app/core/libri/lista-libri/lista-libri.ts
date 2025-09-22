@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Doc } from '../../../common/models/api-response';
 import { BaseComponentDirective } from '../../../services/abstracts/base-component/base-component-directive';
 import { LibriService } from '../../../services/libri/libri-service';
+import { ErrorService } from '../../../services/error/error-service';
 
 @Component({
   selector: 'app-lista-libri',
@@ -29,6 +30,7 @@ export class ListaLibri extends BaseComponentDirective implements OnInit {
 
   protected readonly formBuilder = inject(FormBuilder);
   protected readonly libriService = inject(LibriService);
+  protected readonly errorService = inject(ErrorService);
 
   libri: Doc[] = [];
   form!: FormGroup;
@@ -61,7 +63,7 @@ export class ListaLibri extends BaseComponentDirective implements OnInit {
   }
 
   dettaglio(libro: Doc) {
-    this.router.navigate(['dettaglio', libro.key, libro.lending_edition_s ?? null], { relativeTo: this.activatedRoute.parent })
+    this.router.navigate(['dettaglio', libro.key, libro.lending_edition_s ?? 0], { relativeTo: this.activatedRoute.parent })
   }
 
 }

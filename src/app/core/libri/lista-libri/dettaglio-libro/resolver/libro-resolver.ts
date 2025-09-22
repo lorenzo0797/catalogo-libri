@@ -6,5 +6,5 @@ import { LibriService } from "../../../../../services/libri/libri-service";
 
 export const libroResolver: ResolveFn<Libro> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Libro> => {
     const libriService = inject(LibriService);
-    return libriService.getDettaglioLibro(route.params['id'], route.params['idE']);
+    return libriService.getDettaglioLibro(route.params['id'], route.params['idE'] === '0' ? null : route.params['idE']);
 }

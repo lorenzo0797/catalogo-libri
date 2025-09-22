@@ -14,17 +14,15 @@ function mapToLibro(
     ? `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`
     : undefined;
 
-  debugger
-
   return {
     id: edition.key,
     idWork: work.key,
     workTitle: work.title,
     title: edition.title,
     description:
-      typeof work.description === 'string'
-        ? work.description
-        : work.description?.value,
+      edition.description ?
+        typeof edition.description === 'string' ? edition.description : edition.description?.value
+        : typeof work.description === 'string' ? work.description : work.description?.value,
     author: author?.name ?? 'Sconosciuto',
     coverUrl,
     publishDate: edition.publish_date,
@@ -46,7 +44,7 @@ export class LibriService {
   private baseUrl = 'https://openlibrary.org';
 
   getListaLibri(filtro: any): Observable<OpenLibraryResponse> {
-    let params = new HttpParams({ fromObject: { ...filtro, mode: 'everything' } });
+    let params = new HttpParams({ fromObject: filtro });
     return this.httpClient.get<OpenLibraryResponse>(`${this.baseUrl}/search.json`, { params: params });
   }
 
@@ -67,44 +65,11 @@ export class LibriService {
         )
       }),
       map(({ work, edition, authors }) => {
-        debugger
         return mapToLibro(work, edition, authors)
       })
     )
 
   }
-
-  // getPrimaEdizione(key: string): Observable<Libro> {
-  //   return this.httpClient.get<OpenLibraryWork>(`${this.baseUrl}${key}.json`).pipe(
-  //     switchMap(work => {
-  //       //prendiamo il primo autore
-  //       const autoriKey = work.authors[0]?.author?.key;
-  //       return forkJoin({
-  //         autori: autoriKey ? this.getAutori(autoriKey) : of(),
-  //         edizioni: this.getEdizioni(key)
-  //       }).pipe(
-  //         map((res) => {
-  //           const edizione = res.edizioni[0];
-  //           const coverUrl = edizione.covers?.length ? `https://covers.openlibrary.org/b/id/${edizione.covers[0]}-L.jpg` : undefined;
-  //           return {
-  //             title: edizione.title,
-  //             description:
-  //               typeof work.description === 'string'
-  //                 ? work.description
-  //                 : work.description?.value,
-  //             author: res.autori?.name ?? 'Sconosciuto',
-  //             coverUrl,
-  //             isbn: edizione?.isbn_13 ?? edizione?.isbn_10,
-  //             pages: edizione?.number_of_pages,
-  //             publishDate: edizione?.publish_date,
-  //             publisher: edizione?.publishers?.[0],
-  //             language: edizione?.languages?.[0]?.key.replace('/languages/', '')
-  //           } as Libro;
-  //         })
-  //       );
-  //     })
-  //   );
-  // }
 
   private getWork(key: string): Observable<OpenLibraryWork> {
     return this.httpClient.get<OpenLibraryWork>(`${this.baseUrl}${key}.json`);
